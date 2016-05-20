@@ -4,7 +4,10 @@ MAINTAINER Jingu Sim <jingsm@gmail.com>
 # Install basic packages
 RUN \
   apt-get update &&\
-  apt-get install software-properties-common &&\
+  apt-get install software-properties-common
+
+# Install Python
+RUN \
   apt-get install python-software-properties
 
 # Install Oracle JDK 8
