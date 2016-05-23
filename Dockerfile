@@ -24,35 +24,26 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer
 
-# Install Elasticsearch
-# WORKDIR /tmp
+# Register repository
 RUN \
   cd /tmp && \
   wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
   echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list && \
-  apt-get update && \
-  apt-get -qq -y install elasticsearch
+  echo "deb http://packages.elastic.co/kibana/4.5/debian stable main" | tee -a /etc/apt/sources.list.d/kibana-4.5.x.list && \
+  echo 'deb http://packages.elastic.co/logstash/2.3/debian stable main' | tee /etc/apt/sources.list.d/logstash-2.3.x.list
 
-# Install Kibana
+# Install Elasticsearch / Kibana / Logstach
 # WORKDIR /tmp
-RUN \
-  cd /tmp && \
-  echo "deb http://packages.elastic.co/kibana/4.4/debian stable main" | tee -a /etc/apt/sources.list.d/kibana-4.4.x.list && \
   apt-get update && \
-  apt-get -qq -y install kibana
-
-# Install Logstash
-# WORKDIR /tmp
-RUN \
-  cd /tmp && \
-  echo 'deb http://packages.elastic.co/logstash/2.2/debian stable main' | tee /etc/apt/sources.list.d/logstash-2.2.x.list && \
-  apt-get update && \
+  apt-get -qq -y install elasticsearch && \
+  apt-get -qq -y install kibana && \
   apt-get -qq -y install logstash
 
 # Expose ports
+#   - 5601: Kibana
 #   - 9200: HTTP
 #   - 9300: transport
-EXPOSE 80
+# EXPOSE 80
 EXPOSE 5601
 EXPOSE 9200
 EXPOSE 9300
@@ -61,4 +52,4 @@ EXPOSE 9300
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 # Define default command
-CMD ["bash"]
+# CMD ["bash"]
