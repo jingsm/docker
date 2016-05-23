@@ -30,10 +30,11 @@ RUN \
   wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
   echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | tee -a /etc/apt/sources.list.d/elasticsearch-2.x.list && \
   echo "deb http://packages.elastic.co/kibana/4.5/debian stable main" | tee -a /etc/apt/sources.list.d/kibana-4.5.x.list && \
-  echo 'deb http://packages.elastic.co/logstash/2.3/debian stable main' | tee /etc/apt/sources.list.d/logstash-2.3.x.list
+  echo "deb http://packages.elastic.co/logstash/2.3/debian stable main" | tee /etc/apt/sources.list.d/logstash-2.3.x.list
 
 # Install Elasticsearch / Kibana / Logstach
 # WORKDIR /tmp
+RUN \
   apt-get update && \
   apt-get -qq -y install elasticsearch && \
   apt-get -qq -y install kibana && \
