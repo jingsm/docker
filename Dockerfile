@@ -39,6 +39,10 @@ RUN \
   apt-get -qq -y install elasticsearch && \
   apt-get -qq -y install kibana && \
   apt-get -qq -y install logstash
+  
+# Install plugin - Sense
+RUN \
+  /opt/kibana/bin/kibana plugin --install elastic/sense
 
 # Expose ports
 #   - 5601: Kibana
